@@ -31,6 +31,7 @@ public:
 	void Insert(T&);
 	void DeleteElement(elem<T>*, T&);
 	T accumulate(T (*op)(T, T), T, CirList<T>&);
+	CirList<T> map(T(*f)(T), CirList<T>&);
 };
 
 template <class T>
@@ -194,6 +195,20 @@ T CirList<T>::accumulate(T(*op)(T, T), T null_val, CirList<T>& l)
 	}
 
 	return s;
+}
+
+template <class T>
+CirList<T> map(T(*f)(T), CirList<T>& l)
+{
+	l.IterStart();
+	elem<T>* p = l.Iter();
+	CirList<T> l1;
+	while (p)
+	{
+		l1.ToEnd(f(p->inf));
+		p = l.Iter();
+	}
+	return l1;
 }
 
 template <class T>
