@@ -32,6 +32,7 @@ public:
 	void DeleteElement(elem<T>*, T&);
 	T accumulate(T (*op)(T, T), T, CirList<T>&);
 	CirList<T> map(T(*f)(T), CirList<T>&);
+	CirList<T> filter(bool (*pred)(T), CirList<T>& l);
 };
 
 template <class T>
@@ -198,7 +199,7 @@ T CirList<T>::accumulate(T(*op)(T, T), T null_val, CirList<T>& l)
 }
 
 template <class T>
-CirList<T> map(T(*f)(T), CirList<T>& l)
+CirList<T> CirList<T>::map(T(*f)(T), CirList<T>& l)
 {
 	l.IterStart();
 	elem<T>* p = l.Iter();
@@ -208,6 +209,21 @@ CirList<T> map(T(*f)(T), CirList<T>& l)
 		l1.ToEnd(f(p->inf));
 		p = l.Iter();
 	}
+	return l1;
+}
+
+template <class T>
+CirList<T> CirList<T>::filter(bool (*pred)(T), CirList<T>& l)
+{
+	l.IterStart();
+	elem<T>* p = l.Iter();
+	CirList<T> l1;
+	while (p)
+	{
+		if (pred(p->inf)) l1.ToEnd(p->inf);
+		p = l.Iter();
+	}
+		
 	return l1;
 }
 
