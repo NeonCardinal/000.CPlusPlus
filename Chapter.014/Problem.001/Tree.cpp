@@ -28,8 +28,8 @@ public:
 	Tree& operator=(Tree const&);
 	bool Empty() const;
 	T RootTree() const;
-	Tree LeftTree() const;
-	Tree RightTree() const;
+	T LeftTree() const;
+	T RightTree() const;
 	void CreateTr(T, Tree<T>, Tree<T>);
 	void Print() const;
 	void Create();
@@ -63,4 +63,77 @@ Tree<T>& Tree<T>::operator=(Tree<T> const& r)
 	}
 
 	return *this;
+}
+
+template <class T>
+void Tree<T>::DeleteTree(node<T>*& p) const
+{
+	DeleteTree(p->left);
+	DeleteTree(p->right);
+	delete p;
+	p = NULL;
+}
+
+template <class T>
+void Tree<T>::Copy(node<T>*& pos, node<T>* const& r) const
+{
+	pos = NULL;
+
+	if (r)
+	{
+		pos = new node<T>;
+		pos->inf = r->inf;
+		Copy(pos->left, r->left);
+		Copy(pos->right, r->right);
+	}
+}
+
+template <class T>
+void Tree<T>::CopyTree(Tree<T> const& tree) const
+{
+	Copy(root, tree.root);
+}
+
+template <class T>
+void Tree<T>::Pr(const node<T>* p) const
+{
+	if (p)
+	{
+		pr(p->left);
+		cout << p->inf << " ";
+		pr(p->right);
+	}
+}
+
+//public
+template <class T>
+bool Tree<T>::Empty() const
+{
+	return root == NULL;
+}
+
+template <class T>
+T Tree<T>::RootTree() const
+{
+	return root->inf;
+}
+
+template <class T>
+T Tree<T>::LeftTree() const
+{
+	Tree<T> t;
+
+	Copy(t.root, root->left);
+
+	return t;
+}
+
+template <class T>
+T Tree<T>::RightTree() const
+{
+	Tree<T> t;
+
+	Copy(t.root, root->right);
+
+	return t;
 }
