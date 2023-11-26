@@ -30,12 +30,14 @@ public:
 	void ToEnd(T&);
 	void Insert(T&);
 	void DeleteElement(elem<T>*, T&);
+	T accumulate(T (*op)(T, T), T, CirList<T>&);
 };
 
 template <class T>
 CirList<T>::CirList()
 {
 	start = NULL;
+	//current = NULL;
 }
 
 template <class T>
@@ -175,6 +177,23 @@ void CirList<T>::DeleteElement(elem<T>* p, T& x)
 		start = NULL;
 		delete p;
 	}
+}
+
+template <class T>
+T CirList<T>::accumulate(T(*op)(T, T), T null_val, CirList<T>& l)
+{
+	T s = null_val;
+	l.IterStart();
+
+	elem<T>* p = l.Iter();
+
+	while (p)
+	{
+		s = op(s, p->inf);
+		p = l.Iter();
+	}
+
+	return s;
 }
 
 template <class T>
