@@ -20,7 +20,7 @@ private:
 	void Copy(node<T>* &, node<T>* const&) const;
 	void CopyTree(Tree<T> const&) const;
 	void Pr(const node<T>*) const;
-	void CreateTree(node<T> &) const;
+	void CreateTree(node<T>* &) const;
 public:
 	Tree();
 	Tree(Tree const&);
@@ -105,6 +105,37 @@ void Tree<T>::Pr(const node<T>* p) const
 	}
 }
 
+template <class T>
+void Tree<T>::CreateTree(node<T>*& pos) const
+{
+	T x;
+	char c;
+
+	cout << "root: ";
+	cin >> x;
+
+	pos = new node<T>;
+	pos->inf = x;
+	pos->left = NULL;
+	pos->right = NULL;
+	
+	cout << "Left Tree of: " << x << " y/n? ";
+	cin >> c;
+
+	if (c == 'y')
+	{
+		CreateTree(pos->left);
+	}
+
+	cout << "Right Tree of: " << x << "y/n? ";
+	cin >> c;
+
+	if (c == 'y')
+	{
+		CreateTree(pos->right);
+	}
+}
+
 //public
 template <class T>
 bool Tree<T>::Empty() const
@@ -136,4 +167,14 @@ T Tree<T>::RightTree() const
 	Copy(t.root, root->right);
 
 	return t;
+}
+
+template <class T>
+void Tree<T>::CreateTr(T x, Tree<T> l, Tree<T> r)
+{
+	root = new node<T>;
+	root->inf = x;
+	
+	Copy(root->left, l.root);
+	Copy(root->right, r.root);
 }
