@@ -38,7 +38,7 @@ public:
 template <class T>
 Tree<T>::Tree()
 {
-	root = NULL:
+	root = NULL;
 }
 
 template <class T>
@@ -177,4 +177,17 @@ void Tree<T>::CreateTr(T x, Tree<T> l, Tree<T> r)
 	
 	Copy(root->left, l.root);
 	Copy(root->right, r.root);
+}
+
+template <class T>
+void Tree<T>::Print() const
+{
+	pr(root);
+	cout << endl;
+}
+
+template <class T>
+void Tree<T>::Create()
+{
+	CreateTree(root);
 }
