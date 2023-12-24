@@ -1,6 +1,7 @@
 //Chapter 015, Task 001
 //10.12.2023, 21:53
 #include <iostream>
+#include <string>
 
 using namespace std;
 
@@ -10,11 +11,11 @@ private:
 	char* name;
 	char* egn;
 public:
-	void ReadPeople(char*, char*);
+	void ReadPeople(const char*, const char*);
 	void PrintPeople() const;
 };
 
-void People::ReadPeople(char* str, char* num)
+void People::ReadPeople(const char* str, const char* num)
 {
 	name = new char[strlen(str + 1)];
 	strcpy(name, str);
@@ -34,11 +35,11 @@ private:
 	long facnom;
 	double usp;
 public:
-	void ReadStudent(char*, char*, long, double);
+	void ReadStudent(const char*, const char*, long, double);
 	void PrintStudent() const;
 };
 
-void Student::ReadStudent(char* str, char* num, long factnum, double uspe)
+void Student::ReadStudent(const char* str,  const char* num, long factnum, double uspe)
 {
 	ReadPeople(str, num);
 	facnom = factnum;
